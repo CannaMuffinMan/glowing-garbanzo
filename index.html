@@ -16,10 +16,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Roboto+Mono:wght@700&display=swap');
+    :root {
+      --base-font-size: 16px; /* Default REM base */
+      --scale-factor: 1; /* JS sets this based on zoom */
+    }
     *{margin:0;padding:0;box-sizing:border-box;}
-    body{background:#0A0E17;color:#F0F4FF;font-family:'Bangers',cursive;overflow:auto;height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative;}
+    body{background:#0A0E17;color:#F0F4FF;font-family:'Bangers',cursive;overflow:auto;min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative;font-size:calc(var(--base-font-size) * var(--scale-factor));}
     .nebula{position:absolute;inset:0;background:radial-gradient(circle at 20% 80%,#00F0FF20 0%,transparent 50%),radial-gradient(circle at 80% 20%,#FF00AA20 0%,transparent 50%);animation:pulse 12s infinite alternate;background-size:cover;}
-    .container{z-index:10;text-align:center;padding:2rem;max-width:90vw;width:100%;}
+    .container{z-index:10;text-align:center;padding:2rem;max-width:90vw;width:100%;transform:scale(var(--scale-factor));transform-origin:top center;}
     h1{font-size:clamp(2rem,8vw,6rem);letter-spacing:clamp(4px,1vw,8px);background:linear-gradient(90deg,#00F0FF,#FF00AA,#00F0FF);background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s infinite linear,glitchLoop 8s infinite;text-shadow:0 0 30px rgba(0,240,255,0.6);}
     h2{font-size:clamp(1.5rem,6vw,5rem);letter-spacing:clamp(3px,0.8vw,6px);color:#FF00AA;text-shadow:0 0 40px #FF00AA;margin:0.5rem 0;animation:glitchLoop 8s infinite;}
     p{font-size:clamp(1rem,3vw,2rem);letter-spacing:clamp(2px,0.5vw,3px);margin:1.5rem 0;}
@@ -42,6 +46,9 @@
     }
     @media (min-width: 1200px) {
       .container{max-width:70vw;}
+    }
+    @media (min-zoom:1.25) or (min-device-pixel-ratio:1.25) {
+      :root {--scale-factor: 0.8;} /* Pre-emptive scale down for common zoom levels */
     }
     @keyframes shine{0%{background-position:0%}100%{background-position:200%}}
     @keyframes pulse{0%{opacity:0.6}100%{opacity:1}}
@@ -116,6 +123,18 @@
       document.getElementById("mins").innerText  = m.toString().padStart(2,"0");
       document.getElementById("secs").innerText  = s.toString().padStart(2,"0");
     }, 1000);
+
+    // Zoom detection & dynamic optimization
+    function adjustForZoom() {
+      const zoomLevel = window.devicePixelRatio || (window.outerWidth / window.innerWidth) || 1;
+      const scaleFactor = 1 / zoomLevel; // Inverse scale to counter zoom bloat
+      document.documentElement.style.setProperty('--scale-factor', scaleFactor);
+      document.documentElement.style.setProperty('--base-font-size', `${16 * scaleFactor}px`);
+    }
+
+    window.addEventListener('resize', adjustForZoom);
+    window.addEventListener('load', adjustForZoom);
+    adjustForZoom(); // Initial call
   </script>
 </body>
 </html>
