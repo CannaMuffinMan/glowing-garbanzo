@@ -126,13 +126,13 @@
   </style>
 </head>
 <body>
-  <audio id="bg-music" loop muted>
+  <audio id="bg-music" loop autoplay muted>
     <source src="song.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
   
   <div class="audio-controls">
-    <button onclick="document.getElementById('bg-music').play(); this.style.display='none';">Unmute the Revolution</button>
+    <button onclick="playAudio()">Unmute the Revolution</button>
   </div>
   
   <header>
@@ -217,5 +217,18 @@
   <footer>
     <p>&copy; 2025 Forever Couch Gang. All rights reserved.</p>
   </footer>
+
+  <script>
+    function playAudio() {
+      const audio = document.getElementById('bg-music');
+      audio.muted = false;
+      audio.play().then(() => {
+        console.log('Audio playback started successfully');
+      }).catch(error => {
+        console.error('Audio playback failed:', error);
+      });
+      this.style.display = 'none';
+    }
+  </script>
 </body>
 </html>
