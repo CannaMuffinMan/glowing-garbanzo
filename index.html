@@ -7,7 +7,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@900&display=swap" rel="stylesheet">
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
-    body{background:#0A0E17;color:#F0F4FF;font-family:'Bangers',cursive;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+    html, body {
+      height:100%; background:#0A0E17; color:#F0F4FF; font-family:'Bangers',cursive;
+      overflow:hidden; /* Critical for OBS – hides scrollbars, JS scroll still works */
+      min-height:100vh; display:flex; flex-direction:column; align-items:center;
+      justify-content:flex-start; position:relative;
+    }
     .nebula{position:absolute;inset:0;background:radial-gradient(circle at 20% 80%,#00F0FF20 0%,transparent 50%),radial-gradient(circle at 80% 20%,#FF00AA20 0%,transparent 50%);animation:p 12s infinite alternate}
     @keyframes p{0%{opacity:.6}100%{opacity:1}}
     .container{max-width:95vw;padding:2rem;text-align:center;z-index:10}
@@ -18,8 +23,7 @@
     .box{background:rgba(0,255,65,.15);border:2px solid #00ff41;padding:1rem 2rem;border-radius:20px;min-width:100px;box-shadow:0 0 30px #00ff41}
     .num{font-size:clamp(3rem,10vw,6rem);color:#00ff41}
     .progress{width:90%;height:40px;background:#111;border:2px solid #00ff41;border-radius:20px;overflow:hidden;margin:2rem 0}
-    .fill{width:68%;height:100%;background:linear-gradient(90deg,#00ff41,#ff0066);animation:f 2s ease-out}
-    @keyframes f{from{width:0}}
+    .fill{height:100%;background:linear-gradient(90deg,#00ff41,#ff0066);width:0%;transition:width 1s ease}
     .merch-section{margin:3rem 0;padding:2rem;background:rgba(0,255,65,.1);border:2px solid #00ff41;border-radius:20px;text-align:center}
     .war-report{background:rgba(255,0,102,.1);padding:2rem;border:2px solid #ff0066;border-radius:20px;margin:2rem 0}
     .audio-btn{position:fixed;top:1rem;right:1rem;z-index:99;background:#00ff41;color:#000;padding:.5rem 1rem;border:none;border-radius:40px;cursor:pointer;box-shadow:0 0 10px #00ff41}
@@ -27,30 +31,47 @@
     .blink{color:#ff0066;animation:b .8s infinite;text-shadow:0 0 20px #ff0066}
     @keyframes b{0%,100%{opacity:1}50%{opacity:.3}}
     @media (max-width:768px){.countdown{flex-direction:column;gap:1rem}.box{min-width:80vw}.merch-section{max-width:95vw}}
+
+    /* UPDATING OVERLAY STYLES */
+    @keyframes pulse {
+      0% { text-shadow: 0 0 40px #00ff41; }
+      100% { text-shadow: 0 0 80px #00ff41, 0 0 120px #00ff41; }
+    }
+    @keyframes updateBlink {
+      0%,100% { opacity:1 }
+      50% { opacity:0.4 }
+    }
   </style>
 </head>
 <body>
-  <div class="nebula"></div>
 
+  <!-- 30-SECOND UPDATING OVERLAY -->
+  <div id="updating-overlay" style="position:fixed;inset:0;background:#0A0E17;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+    <h1 style="font-size:clamp(4rem,15vw,12rem);letter-spacing:10px;color:#00ff41;text-shadow:0 0 40px #00ff41;animation:pulse 1.5s infinite alternate">
+      UPDATING
+    </h1>
+    <div style="width:80%;max-width:800px;height:50px;background:#111;border:3px solid #00ff41;border-radius:25px;overflow:hidden;margin-top:3rem;box-shadow:0 0 30px #00ff41">
+      <div id="update-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#00ff41,#ff0066);transition:width 0.5s ease"></div>
+    </div>
+    <p style="margin-top:2rem;font-size:clamp(1.5rem,5vw,3rem);color:#ff0066;animation:updateBlink 1s infinite">WAR REPORT INCOMING...</p>
+  </div>
+
+  <div class="nebula"></div>
   <audio id="song" loop preload="auto">
     <source src="song.mp3" type="audio/mpeg">
   </audio>
   <button class="audio-btn" onclick="unmuteSong()">UNMUTE WAR ANTHEM</button>
-
   <div class="container">
     <h1>FOREVER COUCH GANG</h1>
     <p style="font-size:clamp(1.2rem,4vw,2.5rem)">PROOF-OF-ROT GENESIS • JAN 1 2026</p>
-
     <div class="countdown">
       <div class="box"><div class="num" id="days">00</div><div>DAYS</div></div>
       <div class="box"><div class="num" id="hours">00</div><div>HOURS</div></div>
       <div class="box"><div class="num" id="mins">00</div><div>MINS</div></div>
       <div class="box"><div class="num" id="secs">00</div><div>SECS</div></div>
     </div>
-
-    <div class="progress"><div class="fill"></div></div>
+    <div class="progress"><div class="fill" id="fill"></div></div>
     <p style="font-size:clamp(1.5rem,5vw,2.5rem);color:#00ff41">65-70% COMPLETE • SOLO DEV GRIND</p>
-
     <div class="war-report">
       <h2 style="color:#ff0066;font-size:clamp(1.5rem,5vw,2.5rem)">WAR REPORT 2.0 – DEC 9 2025</h2>
       <p style="font-size:clamp(1rem,3vw,1.5rem);line-height:1.4">
@@ -60,13 +81,11 @@
         MERCH DROP LIVE BELOW 👇
       </p>
     </div>
-
     <div class="merch-section">
       <h2 style="color:#00ff41;font-size:clamp(1.5rem,5vw,2.5rem)">MERCH DROP LIVE – GEAR UP FOR GENESIS</h2>
       <p style="font-size:clamp(1rem,3vw,1.5rem)">Hoodies, tees, snapbacks, trays, lighters with deer smoke logo. $COUCH payments soon.</p>
       <div id='collection-component-1765326571185'></div>
     </div>
-
     <p class="blink" style="font-size:clamp(2rem,6vw,3.5rem);margin:2rem">WE ARE SO FUCKING CLOSE</p>
     <p style="font-size:clamp(1.5rem,4vw,2.5rem);color:#00ff41;text-align:center">
       We’re building our side of the bridge.<br>
@@ -74,38 +93,79 @@
       Forever Couch Gang forever.
     </p>
   </div>
-
   <footer>ONE HUMAN • ONE WALLET • INFINITE ROT</footer>
 
   <script>
-    // Countdown
+    // ===== 30-SECOND UPDATING SEQUENCE =====
+    const overlay = document.getElementById('updating-overlay');
+    const bar = document.getElementById('update-bar');
+
+    // CHANGE THIS TO THE EXACT MOMENT YOU DEPLOY (EST)
+    const updateDeployTime = new Date('2025-12-15T19:05:00-05:00').getTime(); // Example: 8:00 PM EST on Dec 15
+    const now = Date.now();
+    const thirtySeconds = 30 * 1000;
+
+    if (now - updateDeployTime > thirtySeconds) {
+      overlay.style.display = 'none'; // Late viewers skip straight to full site
+    } else {
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 100 / 300; // 300 steps = ultra smooth over 30s
+        bar.style.width = progress + '%';
+        if (progress >= 100) {
+          clearInterval(interval);
+          overlay.style.opacity = '0';
+          overlay.style.transition = 'opacity 1.5s ease';
+          setTimeout(() => { overlay.style.display = 'none'; }, 1500);
+        }
+      }, 100);
+    }
+
+    // ===== LIVE COUNTDOWN + DYNAMIC PROGRESS BAR =====
     const genesis = new Date('2026-01-01T00:00:00-05:00').getTime();
-    setInterval(() => {
-      let distance = genesis - Date.now();
+
+    function updateTimer() {
+      const now = Date.now();
+      let distance = genesis - now;
+
       if (distance < 0) {
-        document.body.innerHTML = "<h1 style='color:#00ff41;text-align:center;margin-top:40vh;font-size:clamp(4rem,20vw,10rem)'>GENESIS IS LIVE</h1>";
+        document.body.innerHTML = "<h1 style='color:#00ff41;text-align:center;margin-top:40vh;font-size:clamp(4rem,20vw,10rem)'>GENESIS IS LIVE</h1><p style='text-align:center;font-size:3rem;color:#ff0066'>FOREVER COUCH GANG FOREVER</p>";
         return;
       }
-      let d = Math.floor(distance / 86400000);
-      let h = Math.floor((distance % 86400000) / 3600000);
-      let m = Math.floor((distance % 3600000) / 60000);
-      let s = Math.floor((distance % 60000) / 1000);
-      document.getElementById('days').textContent = d.toString().padStart(2,'0');
-      document.getElementById('hours').textContent = h.toString().padStart(2,'0');
-      document.getElementById('mins').textContent = m.toString().padStart(2,'0');
-      document.getElementById('secs').textContent = s.toString().padStart(2,'0');
-    }, 1000);
 
-    // Song unmute
+      const days = Math.floor(distance / 86400000);
+      const hours = Math.floor((distance % 86400000) / 3600000);
+      const mins = Math.floor((distance % 3600000) / 60000);
+      const secs = Math.floor((distance % 60000) / 1000);
+
+      document.getElementById('days').textContent = days.toString().padStart(2,'0');
+      document.getElementById('hours').textContent = hours.toString().padStart(2,'0');
+      document.getElementById('mins').textContent = mins.toString().padStart(2,'0');
+      document.getElementById('secs').textContent = secs.toString().padStart(2,'0');
+
+      // Progress bar (real % from Jan 1 2025 → Jan 1 2026)
+      const startYear = new Date('2025-01-01T00:00:00-05:00').getTime();
+      const total = genesis - startYear;
+      const elapsed = now - startYear;
+      let percent = (elapsed / total) * 100;
+      // Uncomment next line if you want to cap visual progress at 70% for hype
+      // percent = Math.min(percent, 70);
+      document.getElementById('fill').style.width = percent + '%';
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    // ===== UNMUTE WAR ANTHEM =====
     function unmuteSong() {
       const audio = document.getElementById('song');
       audio.muted = false;
       audio.volume = 0.5;
-      audio.play().then(() => console.log('Anthem roaring!')).catch(e => console.error('Song error:', e));
+      audio.play().catch(e => console.error('Play error:', e));
       document.querySelector('.audio-btn').style.display = 'none';
     }
 
-    // Shopify embed (your code)
+    // ===== SHOPIFY MERCH EMBED (YOUR ORIGINAL) =====
     (function () {
       var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
       if (window.ShopifyBuy) {
@@ -291,6 +351,34 @@
         });
       }
     })();
+
+    // ===== SMOOTH AUTOSCROLL =====
+    function autoScroll() {
+      const scrollSpeed = 35;
+      const pauseAtBottom = 5000;
+      const pauseAtTop = 3000;
+      let scrollingDown = true;
+
+      function scrollStep() {
+        if (scrollingDown) {
+          window.scrollBy(0, scrollSpeed);
+          if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 10) {
+            scrollingDown = false;
+            setTimeout(() => { scrollingDown = true; }, pauseAtBottom);
+          }
+        } else {
+          window.scrollBy(0, -scrollSpeed);
+          if (window.scrollY <= 10) {
+            scrollingDown = true;
+            setTimeout(() => { scrollingDown = false; }, pauseAtTop);
+          }
+        }
+        requestAnimationFrame(scrollStep);
+      }
+      scrollStep();
+    }
+
+    window.addEventListener('load', autoScroll);
   </script>
 </body>
 </html>
