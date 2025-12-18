@@ -9,20 +9,25 @@
     *{margin:0;padding:0;box-sizing:border-box}
     html, body {
       height:100%; 
-      background:transparent !important; /* FULL TRANSPARENT FOR STREAM OVERLAY */
+      background:transparent !important;
       color:#F0F4FF; font-family:'Bangers',cursive;
-      overflow:hidden; min-height:100vh; display:flex; flex-direction:column; align-items:center;
+      overflow:auto; /* FIXED: Re-enable scrolling */
+      min-height:100vh; display:flex; flex-direction:column; align-items:center;
       justify-content:flex-start; position:relative;
+      pointer-events:auto; /* Allow scrolling */
     }
     .nebula{
       position:absolute;inset:0;
       background:radial-gradient(circle at 20% 80%,#00F0FF40 0%,transparent 50%),
                  radial-gradient(circle at 80% 20%,#FF00AA40 0%,transparent 50%);
       animation:p 12s infinite alternate;
-      pointer-events:none; /* So clicks go through to game */
+      pointer-events:none;
     }
     @keyframes p{0%{opacity:.5}100%{opacity:.9}}
-    .container{max-width:95vw;padding:2rem;text-align:center;z-index:10; pointer-events:none;} /* Text readable but non-blocking */
+    .container{
+      max-width:95vw;padding:2rem;text-align:center;z-index:10;
+      pointer-events:none; /* Clicks go through for overlay use */
+    }
     h1{font-size:clamp(3rem,10vw,8rem);letter-spacing:8px;background:linear-gradient(90deg,#00F0FF,#FF00AA,#00F0FF);-webkit-background-clip:text;color:transparent;animation:s 4s infinite,g 8s infinite;text-shadow:0 0 40px #00ff41}
     @keyframes s{0%{background-position:0%}100%{background-position:200%}}
     @keyframes g{0%,100%{text-shadow:0 0 40px #00ff41}20%{text-shadow:5px 0 #ff0066,-5px 0 #00ffff}}
@@ -31,19 +36,15 @@
     .num{font-size:clamp(3rem,10vw,6rem);color:#00ff41;text-shadow:0 0 20px #00ff41}
     .progress{width:90%;height:40px;background:rgba(17,17,17,.5);border:3px solid #00ff41;border-radius:20px;overflow:hidden;margin:2rem 0;box-shadow:0 0 30px #00ff41}
     .fill{height:100%;background:linear-gradient(90deg,#00ff41,#ff0066);width:0%;transition:width 1s ease;box-shadow:0 0 20px #00ff41}
-    .merch-section{margin:3rem 0;padding:2rem;background:rgba(0,255,65,.2);border:3px solid #00ff41;border-radius:20px;text-align:center;box-shadow:0 0 30px #00ff41}
     .war-report{background:rgba(255,0,102,.2);padding:2rem;border:3px solid #ff0066;border-radius:20px;margin:2rem 0;box-shadow:0 0 40px #ff0066}
-    footer{position:fixed;bottom:1rem;width:100%;text-align:center;opacity:.9;font-size:clamp(1rem,2vw,1.4rem);text-shadow:0 0 20px #00ff41}
+    .merch-section{margin:3rem 0;padding:2rem;background:rgba(0,255,65,.2);border:3px solid #00ff41;border-radius:20px;text-align:center;box-shadow:0 0 30px #00ff41}
+    footer{position:fixed;bottom:1rem;width:100%;text-align:center;opacity:.9;font-size:clamp(1rem,2vw,1.4rem);text-shadow:0 0 20px #00ff41;pointer-events:none;}
     .blink{color:#ff0066;animation:b .8s infinite;text-shadow:0 0 30px #ff0066}
     @keyframes b{0%,100%{opacity:1}50%{opacity:.4}}
     @media (max-width:768px){.countdown{flex-direction:column;gap:1rem}.box{min-width:80vw}}
-    /* UPDATING OVERLAY – NOW WITH TRANSPARENT BASE */
-    #updating-overlay{
-      position:fixed;inset:0;background:rgba(10,14,23,0.95);z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-    }
+    #updating-overlay{position:fixed;inset:0;background:rgba(10,14,23,0.95);z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
     @keyframes pulse {0% { text-shadow: 0 0 50px #00ff41; }100% { text-shadow: 0 0 100px #00ff41, 0 0 150px #00ff41; }}
     @keyframes updateBlink {0%,100% { opacity:1 }50% { opacity:0.5 }}
-    /* AUDIO PLAYER – MADE MORE COMPACT FOR OVERLAY */
     .audio-player{position:fixed;top:1rem;right:1rem;z-index:100;background:rgba(0,0,0,0.6);padding:1rem;border:2px solid #00ff41;border-radius:20px;box-shadow:0 0 20px #00ff41;display:flex;flex-direction:column;gap:10px;align-items:center;width:180px;pointer-events:all;}
     .play-pause-btn{background:#00ff41;color:#000;padding:0.5rem 1rem;border:none;border-radius:20px;cursor:pointer;font-size:1rem;box-shadow:0 0 10px #00ff41}
     .volume-slider{-webkit-appearance:none;width:100%;height:10px;border-radius:5px;background:#333;outline:none}
@@ -104,14 +105,14 @@
   </div>
   <footer>ONE HUMAN • ONE WALLET • INFINITE ROT</footer>
   <script>
-    // ===== PURE CINEMATIC DROP (OLD ERA FADES FIRST) =====
+    // ===== CINEMATIC DROP ON EVERY LOAD =====
     const overlay = document.getElementById('updating-overlay');
     const bar = document.getElementById('update-bar');
     const mainContent = document.querySelector('.container');
     const nebula = document.querySelector('.nebula');
     const footer = document.querySelector('footer');
 
-    const triggerUpdateNow = true; // Flip to false after the drop
+    const triggerUpdateNow = true; // Every load = full drama
 
     if (triggerUpdateNow) {
       setTimeout(() => {
@@ -146,7 +147,34 @@
       }, 2000);
     }
 
-    // ===== AUDIO CONTROLS (ONE PLAYTHROUGH) =====
+    // ===== FIXED COUNTDOWN (Explicit UTC to avoid timezone bugs) =====
+    const genesis = new Date(Date.UTC(2026, 0, 1, 5, 0, 0)).getTime(); // Jan 1 2026 00:00 EST = 05:00 UTC
+    function updateTimer() {
+      const now = Date.now();
+      let distance = genesis - now;
+      if (distance < 0) {
+        document.querySelector('.countdown').innerHTML = "<h1 style='color:#00ff41;font-size:clamp(4rem,15vw,10rem)'>GENESIS IS LIVE</h1>";
+        document.getElementById('fill').style.width = '100%';
+        return;
+      }
+      const days = Math.floor(distance / 86400000);
+      const hours = Math.floor((distance % 86400000) / 3600000);
+      const mins = Math.floor((distance % 3600000) / 60000);
+      const secs = Math.floor((distance % 60000) / 1000);
+      document.getElementById('days').textContent = days.toString().padStart(2,'0');
+      document.getElementById('hours').textContent = hours.toString().padStart(2,'0');
+      document.getElementById('mins').textContent = mins.toString().padStart(2,'0');
+      document.getElementById('secs').textContent = secs.toString().padStart(2,'0');
+      const startYear = new Date(Date.UTC(2025, 0, 1, 5, 0, 0)).getTime();
+      const total = genesis - startYear;
+      const elapsed = now - startYear;
+      let percent = Math.min((elapsed / total) * 100, 100);
+      document.getElementById('fill').style.width = percent + '%';
+    }
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    // ===== AUDIO CONTROLS + AUTOSCROLL FIXED =====
     const song = document.getElementById('song');
     const playPauseBtn = document.getElementById('playPauseBtn');
     const volumeSlider = document.getElementById('volumeSlider');
@@ -169,9 +197,33 @@
       playPauseBtn.textContent = 'REPLAY ANTHEM';
     });
 
-    // ===== COUNTDOWN + PROGRESS + SHOPIFY + AUTOSCROLL (unchanged from previous) =====
-    // ... (keep your existing scripts for countdown, Shopify, autoScroll here)
+    // Auto-scroll restored
+    function autoScroll() {
+      const scrollSpeed = 35;
+      const pauseAtBottom = 5000;
+      const pauseAtTop = 3000;
+      let scrollingDown = true;
+      function scrollStep() {
+        if (scrollingDown) {
+          window.scrollBy(0, scrollSpeed);
+          if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 10) {
+            scrollingDown = false;
+            setTimeout(() => { scrollingDown = true; }, pauseAtBottom);
+          }
+        } else {
+          window.scrollBy(0, -scrollSpeed);
+          if (window.scrollY <= 10) {
+            scrollingDown = true;
+            setTimeout(() => { scrollingDown = false; }, pauseAtTop);
+          }
+        }
+        requestAnimationFrame(scrollStep);
+      }
+      scrollStep();
+    }
+    window.addEventListener('load', autoScroll);
 
+    // Shopify embed unchanged...
   </script>
 </body>
 </html>
