@@ -56,66 +56,68 @@
     .play-pause-btn{background:#00ff41;color:#000;padding:0.5rem 1rem;border:none;border-radius:20px;cursor:pointer;font-size:1rem;box-shadow:0 0 10px #00ff41}
     .volume-slider{-webkit-appearance:none;width:100%;height:10px;border-radius:5px;background:#333;outline:none}
     .volume-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;background:#00ff41;border-radius:50%;cursor:pointer;box-shadow:0 0 15px #00ff41}
-    /* NEW GLITCH EFFECTS FOR SUSPENSE */
-    .glitch { animation: glitch-anim 2s infinite linear alternate-reverse; }
+    /* AMPED GLITCH EFFECTS FOR MORE SUSPENSE */
+    .glitch { animation: glitch-anim 1.5s infinite linear alternate-reverse; } /* Faster for more intensity */
     @keyframes glitch-anim {
-      0% { clip: rect(42px, 9999px, 44px, 0); }
-      5% { clip: rect(12px, 9999px, 59px, 0); }
-      10% { clip: rect(48px, 9999px, 29px, 0); }
-      15% { clip: rect(42px, 9999px, 73px, 0); }
-      20% { clip: rect(63px, 9999px, 27px, 0); }
-      25% { clip: rect(34px, 9999px, 55px, 0); }
-      30% { clip: rect(86px, 9999px, 73px, 0); }
-      35% { clip: rect(20px, 9999px, 20px, 0); }
-      40% { clip: rect(26px, 9999px, 60px, 0); }
-      45% { clip: rect(25px, 9999px, 66px, 0); }
-      50% { clip: rect(57px, 9999px, 98px, 0); }
-      55% { clip: rect(5px, 9999px, 46px, 0); }
-      60% { clip: rect(82px, 9999px, 106px, 0); }
-      65% { clip: rect(54px, 9999px, 82px, 0); }
-      70% { clip: rect(28px, 9999px, 54px, 0); }
-      75% { clip: rect(28px, 9999px, 99px, 0); }
-      80% { clip: rect(15px, 9999px, 121px, 0); }
-      85% { clip: rect(25px, 9999px, 36px, 0); }
-      90% { clip: rect(69px, 9999px, 90px, 0); }
-      95% { clip: rect(14px, 9999px, 62px, 0); }
-      100% { clip: rect(71px, 9999px, 75px, 0); }
+      0% { clip: rect(42px, 9999px, 44px, 0); transform: skew(0.6deg); }
+      5% { clip: rect(12px, 9999px, 59px, 0); transform: skew(-0.5deg); }
+      10% { clip: rect(48px, 9999px, 29px, 0); transform: skew(0.7deg); }
+      15% { clip: rect(42px, 9999px, 73px, 0); transform: skew(-0.3deg); }
+      20% { clip: rect(63px, 9999px, 27px, 0); transform: skew(0.4deg); }
+      25% { clip: rect(34px, 9999px, 55px, 0); transform: skew(-0.6deg); }
+      30% { clip: rect(86px, 9999px, 73px, 0); transform: skew(0.5deg); }
+      35% { clip: rect(20px, 9999px, 20px, 0); transform: skew(-0.7deg); }
+      40% { clip: rect(26px, 9999px, 60px, 0); transform: skew(0.3deg); }
+      45% { clip: rect(25px, 9999px, 66px, 0); transform: skew(-0.4deg); }
+      50% { clip: rect(57px, 9999px, 98px, 0); transform: skew(0.6deg); }
+      55% { clip: rect(5px, 9999px, 46px, 0); transform: skew(-0.5deg); }
+      60% { clip: rect(82px, 9999px, 106px, 0); transform: skew(0.7deg); }
+      65% { clip: rect(54px, 9999px, 82px, 0); transform: skew(-0.3deg); }
+      70% { clip: rect(28px, 9999px, 54px, 0); transform: skew(0.4deg); }
+      75% { clip: rect(28px, 9999px, 99px, 0); transform: skew(-0.6deg); }
+      80% { clip: rect(15px, 9999px, 121px, 0); transform: skew(0.5deg); }
+      85% { clip: rect(25px, 9999px, 36px, 0); transform: skew(-0.7deg); }
+      90% { clip: rect(69px, 9999px, 90px, 0); transform: skew(0.3deg); }
+      95% { clip: rect(14px, 9999px, 62px, 0); transform: skew(-0.4deg); }
+      100% { clip: rect(71px, 9999px, 75px, 0); transform: skew(0.6deg); }
     }
-    .broken { opacity: 0.6; text-shadow: 0 0 20px #ff0000; animation: flicker 0.5s infinite; }
-    @keyframes flicker { 0%, 100% { opacity: 0.6; } 50% { opacity: 0.3; } }
+    .broken { opacity: 0.5; text-shadow: 0 0 25px #ff0000; animation: flicker 0.3s infinite; } /* More aggressive flicker */
+    @keyframes flicker { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.2; } }
     .war-report p.broken-text { font-style: italic; color: #ff0000; background: none; -webkit-background-clip: unset; text-shadow: none; animation: none; }
+    .extra-glitch { animation: extra-glitch 1s infinite steps(1); } /* New extra glitch layer */
+    @keyframes extra-glitch { 0% { filter: hue-rotate(0deg); } 20% { filter: hue-rotate(90deg); } 40% { filter: hue-rotate(180deg); } 60% { filter: hue-rotate(270deg); } 80% { filter: hue-rotate(360deg); } }
   </style>
 </head>
 <body>
   <div id="updating-overlay">
-    <h1 style="font-size:clamp(4rem,15vw,12rem);letter-spacing:10px;background:linear-gradient(90deg,#00ff41,#ff00ff); -webkit-background-clip:text;color:transparent;text-shadow:0 0 50px #00ff41;animation:pulse 1.5s infinite alternate">
+    <h1 style="font-size:clamp(4rem,15vw,12rem);letter-spacing:10px;background:linear-gradient(90deg,#00ff41,#ff00ff); -webkit-background-clip:text;color:transparent;text-shadow:0 0 50px #00ff41;animation:pulse 1.5s infinite alternate" class="glitch">
       UPDATING... GLITCH DETECTED
     </h1>
-    <div style="width:80%;max-width:800px;height:50px;background:#111;border:4px solid #00ff41;border-radius:25px;overflow:hidden;margin-top:3rem;box-shadow:0 0 40px #00ff41">
+    <div style="width:80%;max-width:800px;height:50px;background:#111;border:4px solid #00ff41;border-radius:25px;overflow:hidden;margin-top:3rem;box-shadow:0 0 40px #00ff41" class="extra-glitch">
       <div id="update-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#00ff41,#ff00ff);transition:width 0.5s ease;box-shadow:0 0 20px #00ff41"></div>
     </div>
-    <p style="margin-top:2rem;font-size:clamp(1.5rem,5vw,3rem);background:linear-gradient(90deg,#ff00ff,#00ff41);-webkit-background-clip:text;color:transparent;animation:updateBlink 1s infinite">WAR REPORT INCOMING... SYSTEMS UNSTABLE</p>
+    <p style="margin-top:2rem;font-size:clamp(1.5rem,5vw,3rem);background:linear-gradient(90deg,#ff00ff,#00ff41);-webkit-background-clip:text;color:transparent;animation:updateBlink 1s infinite" class="glitch">WAR REPORT INCOMING... SYSTEMS UNSTABLE</p>
   </div>
-  <div class="nebula glitch"></div> <!-- Added glitch to nebula for broken feel -->
+  <div class="nebula glitch extra-glitch"></div> <!-- Amped glitches on nebula -->
   <audio id="song" preload="auto">
-    <source src="song.mp3" type="audio/mpeg">
+    <source src="song.wav" type="audio/wav">
   </audio>
   <div class="audio-player">
-    <button class="play-pause-btn" id="playPauseBtn">PLAY WAR ANTHEM</button>
-    <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.01" value="0.5">
+    <button class="play-pause-btn" id="playPauseBtn">STOP ANTHEM</button>
+    <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.01" value="0.35">
   </div>
-  <div class="container">
-    <h1 class="glitch">FOREVER COUCH GANG</h1> <!-- Glitch on title -->
-    <p style="font-size:clamp(1.2rem,4vw,2.5rem)" class="broken">PROOF-OF-ROT GENESIS • JAN 1 2026 • SYSTEMS BARELY HOLDING</p> <!-- Broken style -->
-    <div class="countdown glitch"> <!-- Glitch on countdown -->
+  <div class="container glitch"> <!-- More glitch on container -->
+    <h1 class="glitch extra-glitch">FOREVER COUCH GANG</h1> <!-- Double glitch -->
+    <p style="font-size:clamp(1.2rem,4vw,2.5rem)" class="broken glitch">PROOF-OF-ROT GENESIS • JAN 1 2026 • SYSTEMS BARELY HOLDING</p>
+    <div class="countdown glitch extra-glitch"> <!-- Amped glitch -->
       <div class="box"><div class="num" id="days">00</div><div>DAYS</div></div>
       <div class="box"><div class="num" id="hours">00</div><div>HOURS</div></div>
       <div class="box"><div class="num" id="mins">00</div><div>MINS</div></div>
       <div class="box"><div class="num" id="secs">00</div><div>SECS</div></div>
     </div>
-    <div class="progress broken"><div class="fill" id="fill"></div></div> <!-- Broken progress bar -->
-    <p style="font-size:clamp(1.5rem,5vw,2.5rem)">55% COMPLETE • SOLO DEV GRIND HIT HARD</p> <!-- Dropped progress to show hit -->
-    <div class="war-report glitch"> <!-- Glitch on report -->
+    <div class="progress broken glitch"><div class="fill" id="fill"></div></div>
+    <p style="font-size:clamp(1.5rem,5vw,2.5rem)">55% COMPLETE • SOLO DEV GRIND HIT HARD</p>
+    <div class="war-report glitch extra-glitch"> <!-- Amped glitch -->
       <h2 style="font-size:clamp(1.5rem,5vw,2.5rem)">WAR REPORT 4.0 – DEC 27 2025</h2>
       <p style="font-size:clamp(1rem,3vw,1.5rem);line-height:1.4">
         Battles lost, legends— the grind took a brutal hit. Deployment prep gone rogue: "Delete non-essentials" purged the core ecosystem. Blockchain vanished into the void—smart contracts, ABIs, Ganache local chain, all nuked. Site fell apart mid-load: ERR_CONNECTION_REFUSED screaming on localhost:3000, API ghosting on 4001. Console lit with 404s, CORS blocks, TypeScript compilation meltdowns from module conflicts. Frontend builds crashing with webpack polyfill demands, static serves failing. The whole Couch Potato App in disarray—React frontend flickering, Express backend unstable, MetaMask signatures half-baked without chain validation.<br><br>
@@ -124,21 +126,21 @@
         Still broken vibes: API crashes post-handles, no database (in-memory only), blockchain at 0%—needs Ganache redeploy, contract restores, ABI regen. Ecosystem services at 10%—P2P embed waiting, bridges dormant. Progress: ✅ Server 80% • ✅ Frontend 90% • ✅ API 75% • ❌ Blockchain 0% • ❌ Ecosystem 10%. High risk instability, medium blockchain void. We're fighting back—recommendations locked: Restore FCGBC ecosystem, debug crashes with PM2/Winston, migrate to Mongo, complete OAuth, hook cred to chain. Glowing Garbanzo overlays, age verification, anti-bot shields, referral engine from prior wins holding the line. Multi-platform fortress (X/Twitch/IG/FB/YT/Kick) seamless but teetering.<br><br>
         Merch drop crushing underground, community growing. Crypto rewards paused for legal W, but $FCGC tokenomics humming in shadows (deflationary burns, daily 40 cap). We're building the bridge they can't burn— even if it glitches. Forever Couch Gang takes the Ls like the Ws. Revolutionizing content: Centralize ALL platforms into one decentralized app, seamless transitions, no algo tweaks, just raw pulls. No more app-hopping—rot infinite. WE'RE SO FUCKING CLOSE... BUT BARELY HOLDING.
       </p>
-      <p class="broken-text">Error patterns: Crashes after requests • 404s on social links • Connection refused returns • In-memory storage risks data loss • No monitoring/logs yet.</p>
+      <p class="broken-text glitch">Error patterns: Crashes after requests • 404s on social links • Connection refused returns • In-memory storage risks data loss • No monitoring/logs yet.</p>
     </div>
-    <div class="merch-section broken"> <!-- Broken merch section -->
+    <div class="merch-section"> <!-- No glitch on merch to keep sales clean -->
       <h2 style="font-size:clamp(1.5rem,5vw,2.5rem)">MERCH DROP LIVE – GEAR UP FOR GENESIS</h2>
       <p style="font-size:clamp(1rem,3vw,1.5rem)">Hoodies, tees, snapbacks, trays, lighters with deer smoke logo. $COUCH payments soon.</p>
       <div id='collection-component-1765326571185'></div>
     </div>
-    <p class="blink glitch" style="font-size:clamp(2rem,6vw,3.5rem);margin:2rem">WE ARE SO FUCKING CLOSE... DESPITE THE BREAKS</p>
-    <p style="font-size:clamp(1.5rem,4vw,2.5rem);text-align:center" class="broken">
+    <p class="blink glitch extra-glitch" style="font-size:clamp(2rem,6vw,3.5rem);margin:2rem">WE ARE SO FUCKING CLOSE... DESPITE THE BREAKS</p>
+    <p style="font-size:clamp(1.5rem,4vw,2.5rem);text-align:center" class="broken glitch">
       We’re building our side of the bridge.<br>
       If they burn it down — we'll rebuild from the glitches.<br>
       Forever Couch Gang forever.
     </p>
   </div>
-  <footer class="glitch">ONE HUMAN • ONE WALLET • INFINITE ROT • SYSTEMS UNSTABLE</footer> <!-- Glitch footer -->
+  <footer class="glitch extra-glitch">ONE HUMAN • ONE WALLET • INFINITE ROT • SYSTEMS UNSTABLE</footer> <!-- Amped glitch -->
   <script>
     // CINEMATIC DROP ON EVERY LOAD WITH EXTRA SUSPENSE
     const overlay = document.getElementById('updating-overlay');
@@ -207,17 +209,20 @@
     }
     setInterval(updateTimer, 1000);
     updateTimer();
-    // AUDIO CONTROLS
+    // AUDIO CONTROLS WITH AUTO-PLAY AT 35% VOLUME
     const song = document.getElementById('song');
     const playPauseBtn = document.getElementById('playPauseBtn');
     const volumeSlider = document.getElementById('volumeSlider');
+    song.volume = 0.35; // Start at 35% volume
+    volumeSlider.value = 0.35; // Sync slider
+    song.play(); // Auto-play on load
     playPauseBtn.addEventListener('click', () => {
       if (song.paused) {
         song.play();
-        playPauseBtn.textContent = 'PAUSE ANTHEM';
+        playPauseBtn.textContent = 'STOP ANTHEM';
       } else {
         song.pause();
-        playPauseBtn.textContent = 'PLAY WAR ANTHEM';
+        playPauseBtn.textContent = 'PLAY ANTHEM';
       }
     });
     volumeSlider.addEventListener('input', (e) => {
@@ -226,7 +231,7 @@
     song.addEventListener('ended', () => {
       playPauseBtn.textContent = 'REPLAY ANTHEM';
     });
-    // SHOPIFY EMBED – FULL FIXED OPTIONS
+    // SHOPIFY EMBED – FULL FIXED OPTIONS (UNCHANGED FOR SALES)
     (function () {
       var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
       if (window.ShopifyBuy) {
