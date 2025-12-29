@@ -44,7 +44,7 @@
     .progress{width:90%;height:40px;background:rgba(17,17,17,.5);border:3px solid #00ff41;border-radius:20px;overflow:hidden;margin:2rem 0;box-shadow:0 0 30px #00ff41}
     .fill{height:100%;background:linear-gradient(90deg,#00ff41,#ff00ff);width:0%;transition:width 1s ease;box-shadow:0 0 20px #00ff41}
     .war-report{background:rgba(255,0,102,.2);padding:2rem;border:3px solid #ff00ff;border-radius:20px;margin:2rem 0;box-shadow:0 0 40px #ff00ff}
-    .merch-section{margin:3rem 0;padding:2rem;background:rgba(0,255,65,.2);border:3px solid #00ff41;border-radius:20px;text-align:center;box-shadow:0 0 30px #00ff41}
+    .merch-section{margin:3rem 0;padding:2rem;background:rgba(0,255,65,.2);border:3px solid #00ff41;border-radius:20px;text-align:center;box-shadow:0 0 30px #00ff41; pointer-events: auto;} /* Fix for clickable buttons */
     footer{position:fixed;bottom:1rem;width:100%;text-align:center;opacity:.9;font-size:clamp(1rem,2vw,1.4rem);pointer-events:none;}
     .blink{background:linear-gradient(90deg,#ff00ff,#00ff41,#ff00ff);-webkit-background-clip:text;color:transparent;animation:b .8s infinite;text-shadow:0 0 30px #ff00ff}
     @keyframes b{0%,100%{opacity:1}50%{opacity:.4}}
