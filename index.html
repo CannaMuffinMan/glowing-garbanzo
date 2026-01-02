@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Forever Couch Gang • Jan 1 2026</title>
+  <title>Forever Couch Gang • Genesis Day Jan 1 2026</title>
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@900&display=swap" rel="stylesheet">
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
@@ -28,6 +28,7 @@
       max-width:95vw;padding:2rem;text-align:center;z-index:10;
       pointer-events:none;
     }
+    .container * { pointer-events: auto; } /* Enable clicks on children */
     h1, p, .num, footer {
       background:linear-gradient(90deg,#00ff41,#ff00ff,#00ff41);
       -webkit-background-clip:text;
@@ -44,7 +45,7 @@
     .progress{width:90%;height:40px;background:rgba(17,17,17,.5);border:3px solid #00ff41;border-radius:20px;overflow:hidden;margin:2rem 0;box-shadow:0 0 30px #00ff41}
     .fill{height:100%;background:linear-gradient(90deg,#00ff41,#ff00ff);width:0%;transition:width 1s ease;box-shadow:0 0 20px #00ff41}
     .war-report{background:rgba(255,0,102,.2);padding:2rem;border:3px solid #ff00ff;border-radius:20px;margin:2rem 0;box-shadow:0 0 40px #ff00ff}
-    .merch-section{margin:3rem 0;padding:2rem;background:rgba(0,255,65,.2);border:3px solid #00ff41;border-radius:20px;text-align:center;box-shadow:0 0 30px #00ff41; pointer-events: auto;} /* Fix for clickable buttons */
+    .merch-section{margin:3rem 0;padding:2rem;background:rgba(0,255,65,.2);border:3px solid #00ff41;border-radius:20px;text-align:center;box-shadow:0 0 30px #00ff41; pointer-events: auto;}
     footer{position:fixed;bottom:1rem;width:100%;text-align:center;opacity:.9;font-size:clamp(1rem,2vw,1.4rem);pointer-events:none;}
     .blink{background:linear-gradient(90deg,#ff00ff,#00ff41,#ff00ff);-webkit-background-clip:text;color:transparent;animation:b .8s infinite;text-shadow:0 0 30px #ff00ff}
     @keyframes b{0%,100%{opacity:1}50%{opacity:.4}}
@@ -57,7 +58,7 @@
     .volume-slider{-webkit-appearance:none;width:100%;height:10px;border-radius:5px;background:#333;outline:none}
     .volume-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;background:#00ff41;border-radius:50%;cursor:pointer;box-shadow:0 0 15px #00ff41}
     /* AMPED GLITCH EFFECTS FOR MORE SUSPENSE */
-    .glitch { animation: glitch-anim 1.5s infinite linear alternate-reverse; } /* Faster for more intensity */
+    .glitch { animation: glitch-anim 1s infinite linear alternate-reverse; } /* Faster */
     @keyframes glitch-anim {
       0% { clip: rect(42px, 9999px, 44px, 0); }
       5% { clip: rect(12px, 9999px, 59px, 0); }
@@ -81,68 +82,67 @@
       95% { clip: rect(14px, 9999px, 62px, 0); }
       100% { clip: rect(71px, 9999px, 75px, 0); }
     }
-    .broken { opacity: 0.5; text-shadow: 0 0 25px #ff0000; animation: flicker 0.3s infinite; } /* More aggressive flicker */
-    @keyframes flicker { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.2; } }
+    .broken { opacity: 0.5; text-shadow: 0 0 25px #ff0000; animation: flicker 0.2s infinite; } /* Aggro flicker */
+    @keyframes flicker { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.1; } }
     .war-report p.broken-text { font-style: italic; color: #ff0000; background: none; -webkit-background-clip: unset; text-shadow: none; animation: none; }
-    .extra-glitch { animation: extra-glitch 1s infinite steps(1); } /* New extra glitch layer */
+    .extra-glitch { animation: extra-glitch 0.8s infinite steps(1); } /* Faster hue */
     @keyframes extra-glitch { 0% { filter: hue-rotate(0deg); } 20% { filter: hue-rotate(90deg); } 40% { filter: hue-rotate(180deg); } 60% { filter: hue-rotate(270deg); } 80% { filter: hue-rotate(360deg); } }
   </style>
 </head>
 <body>
   <div id="updating-overlay">
-    <h1 style="font-size:clamp(4rem,15vw,12rem);letter-spacing:10px;background:linear-gradient(90deg,#00ff41,#ff00ff); -webkit-background-clip:text;color:transparent;text-shadow:0 0 50px #00ff41;animation:pulse 1.5s infinite alternate" class="glitch">
-      UPDATING... GLITCH DETECTED
+    <h1 style="font-size:clamp(4rem,15vw,12rem);letter-spacing:10px;background:linear-gradient(90deg,#00ff41,#ff00ff); -webkit-background-clip:text;color:transparent;text-shadow:0 0 50px #00ff41;animation:pulse 1.5s infinite alternate" class="glitch extra-glitch">
+      UPDATING... MATRIX GLITCH
     </h1>
     <div style="width:80%;max-width:800px;height:50px;background:#111;border:4px solid #00ff41;border-radius:25px;overflow:hidden;margin-top:3rem;box-shadow:0 0 40px #00ff41" class="extra-glitch">
       <div id="update-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#00ff41,#ff00ff);transition:width 0.5s ease;box-shadow:0 0 20px #00ff41"></div>
     </div>
-    <p style="margin-top:2rem;font-size:clamp(1.5rem,5vw,3rem);background:linear-gradient(90deg,#ff00ff,#00ff41);-webkit-background-clip:text;color:transparent;animation:updateBlink 1s infinite" class="glitch">WAR REPORT INCOMING... SYSTEMS UNSTABLE</p>
+    <p style="margin-top:2rem;font-size:clamp(1.5rem,5vw,3rem);background:linear-gradient(90deg,#ff00ff,#00ff41);-webkit-background-clip:text;color:transparent;animation:updateBlink 1s infinite" class="glitch extra-glitch">WAR REPORT 5.0 INCOMING... BRIDGE BUILDING</p>
   </div>
-  <div class="nebula glitch extra-glitch"></div> <!-- Amped glitches on nebula -->
-  <audio id="song" preload="auto">
+  <div class="nebula glitch extra-glitch"></div>
+  <audio id="song" preload="auto" loop>
     <source src="song.wav" type="audio/wav">
   </audio>
   <div class="audio-player">
     <button class="play-pause-btn" id="playPauseBtn">STOP ANTHEM</button>
     <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.01" value="0.35">
   </div>
-  <div class="container glitch"> <!-- More glitch on container -->
-    <h1 class="glitch extra-glitch">FOREVER COUCH GANG</h1> <!-- Double glitch -->
-    <p style="font-size:clamp(1.2rem,4vw,2.5rem)" class="broken glitch">PROOF-OF-ROT GENESIS • JAN 1 2026 • SYSTEMS BARELY HOLDING</p>
-    <div class="countdown glitch extra-glitch"> <!-- Amped glitch -->
+  <div class="container glitch extra-glitch">
+    <h1 class="glitch extra-glitch">FOREVER COUCH GANG</h1>
+    <p style="font-size:clamp(1.2rem,4vw,2.5rem)" class="broken glitch extra-glitch">PROOF-OF-ROT GENESIS • JAN 1 2026 • BRIDGE LIVE, CORE HOLDING</p>
+    <div class="countdown glitch extra-glitch">
       <div class="box"><div class="num" id="days">00</div><div>DAYS</div></div>
       <div class="box"><div class="num" id="hours">00</div><div>HOURS</div></div>
       <div class="box"><div class="num" id="mins">00</div><div>MINS</div></div>
       <div class="box"><div class="num" id="secs">00</div><div>SECS</div></div>
     </div>
-    <div class="progress broken glitch"><div class="fill" id="fill"></div></div>
-    <p style="font-size:clamp(1.5rem,5vw,2.5rem)">55% COMPLETE • SOLO DEV GRIND HIT HARD</p>
-    <div class="war-report glitch extra-glitch"> <!-- Amped glitch -->
-      <h2 style="font-size:clamp(1.5rem,5vw,2.5rem)">WAR REPORT 4.0 – DEC 27 2025</h2>
+    <div class="progress broken glitch extra-glitch"><div class="fill" id="fill"></div></div>
+    <p style="font-size:clamp(1.5rem,5vw,2.5rem)">85% COMPLETE • GENESIS PUSH CRUSHING</p>
+    <div class="war-report glitch extra-glitch">
+      <h2 style="font-size:clamp(1.5rem,5vw,2.5rem)">WAR REPORT 5.0 – JAN 1 2026</h2>
       <p style="font-size:clamp(1rem,3vw,1.5rem);line-height:1.4">
-        Battles lost, legends— the grind took a brutal hit. Deployment prep gone rogue: "Delete non-essentials" purged the core ecosystem. Blockchain vanished into the void—smart contracts, ABIs, Ganache local chain, all nuked. Site fell apart mid-load: ERR_CONNECTION_REFUSED screaming on localhost:3000, API ghosting on 4001. Console lit with 404s, CORS blocks, TypeScript compilation meltdowns from module conflicts. Frontend builds crashing with webpack polyfill demands, static serves failing. The whole Couch Potato App in disarray—React frontend flickering, Express backend unstable, MetaMask signatures half-baked without chain validation.<br><br>
-        Suspense built as ports clashed (3000-3010, 4000-4002 wars), servers starting clean then exiting code 1 post-request. Theme saves triggering crashes, OAuth flows hanging on callbacks, cred scoring floating without on-chain proof. Ecosystem impact? Catastrophic—user auth broken, social features failing, no P2P nodes, no bridges to Ethereum/Polygon. We shouted wins before, now we take the hits: Solo dev sprint from complete failure, but things broke hard. Glitches everywhere—site barely working, servers teetering.<br><br>
-        But the update hit: Core restored through blood and code. Frontend serves on 3000, API pings /health on 4001. CORS fixed, helmet security locked, cookie sessions live. MetaMask connect/status/disconnect functional with ethers.js verification. Multi-platform OAuth wired (Google, X/Twitter, Twitch, Instagram, Meta) with scopes/redirects—callbacks pending but flows primed. Dynamic themes persisting via CSS vars and API saves. Cred mining endpoints ready, wallet-linked for Proof of Rot (0.01 $FCGC/min view, tiers Newcomer 1x to Legend 5x).<br><br>
-        Still broken vibes: API crashes post-handles, no database (in-memory only), blockchain at 0%—needs Ganache redeploy, contract restores, ABI regen. Ecosystem services at 10%—P2P embed waiting, bridges dormant. Progress: ✅ Server 80% • ✅ Frontend 90% • ✅ API 75% • ❌ Blockchain 0% • ❌ Ecosystem 10%. High risk instability, medium blockchain void. We're fighting back—recommendations locked: Restore FCGBC ecosystem, debug crashes with PM2/Winston, migrate to Mongo, complete OAuth, hook cred to chain. Glowing Garbanzo overlays, age verification, anti-bot shields, referral engine from prior wins holding the line. Multi-platform fortress (X/Twitch/IG/FB/YT/Kick) seamless but teetering.<br><br>
-        Merch drop crushing underground, community growing. Crypto rewards paused for legal W, but $FCGC tokenomics humming in shadows (deflationary burns, daily 40 cap). We're building the bridge they can't burn— even if it glitches. Forever Couch Gang takes the Ls like the Ws. Revolutionizing content: Centralize ALL platforms into one decentralized app, seamless transitions, no algo tweaks, just raw pulls. No more app-hopping—rot infinite. WE'RE SO FUCKING CLOSE... BUT BARELY HOLDING.
+        Genesis Day hits, legends—the 3-day blackout torched everything, but 39-hour sprint resurrected the beast. Ecosystem wipe reversed: Genesis block restored, full platform core online, nebula countdown lit. Anti-bot fortress deployed—OAuth multi-provider (X, Twitch, IG, FB, YT, Kick), phone verification, AI rep scoring, smart contracts evicting fakes. Frontend on Vercel, API on Railway, CouchCred ERC20 testnet on Polygon Mumbai—85% locked, bridge building in progress.<br><br>
+        Battles raged: 36-hour marathons, 20-hour pushes, API comms walls, matrix bugs making you taste shapes and hear colors. Shopify embeds glitched, anthem silent, countdown hiccups—but core held. Merch drop live (hoodies, tees, snapbacks with deer smoke), rewards primed for engagement mining. Big Tech burns the bridge? We build the whole damn thing.<br><br>
+        Wins stacked: API handshake fixed (JWT/CORS nuked), blockchain bridge polished with Hardhat sims, merch-to-crypto gateway embedded. Multi-platform seamless, no app-hops—rot and stack $FCGC. Still teetering: Mainnet migration pending, API crashes post-scale, database to Mongo. Progress: ✅ Server 95% • ✅ Frontend 95% • ✅ API 90% • ✅ Blockchain 85% • ✅ Ecosystem 80%. High-risk bots, medium legal shadows—but $FCGC deflationary burns, daily caps holding.<br><br>
+        Community exploding, crypto rewards legal-proofed. We're flipping content: Centralize ALL into one decentralized app, seamless switches, raw pulls. No more missing streams—infinite rot. Operation Phoenix Down live. WE'RE SO FUCKING CLOSE... BRIDGE ALMOST CROSSED.
       </p>
-      <p class="broken-text glitch">Error patterns: Crashes after requests • 404s on social links • Connection refused returns • In-memory storage risks data loss • No monitoring/logs yet.</p>
+      <p class="broken-text glitch extra-glitch">Error patterns: Scale crashes • Bridge latency • Bot infiltration attempts • Migration hiccups • No full monitoring yet.</p>
     </div>
-    <div class="merch-section"> <!-- No glitch on merch to keep sales clean -->
+    <div class="merch-section">
       <h2 style="font-size:clamp(1.5rem,5vw,2.5rem)">MERCH DROP LIVE – GEAR UP FOR GENESIS</h2>
-      <p style="font-size:clamp(1rem,3vw,1.5rem)">Hoodies, tees, snapbacks, trays, lighters with deer smoke logo. $COUCH payments soon.</p>
+      <p style="font-size:clamp(1rem,3vw,1.5rem)">Hoodies, tees, snapbacks, trays, lighters with deer smoke logo. STACK WITH $FCGC soon.</p>
       <div id='collection-component-1767003791240'></div>
     </div>
-    <p class="blink glitch extra-glitch" style="font-size:clamp(2rem,6vw,3.5rem);margin:2rem">WE ARE SO FUCKING CLOSE... DESPITE THE BREAKS</p>
-    <p style="font-size:clamp(1.5rem,4vw,2.5rem);text-align:center" class="broken glitch">
+    <p class="blink glitch extra-glitch" style="font-size:clamp(2rem,6vw,3.5rem);margin:2rem">WE ARE SO FUCKING CLOSE... BRIDGE LIVE</p>
+    <p style="font-size:clamp(1.5rem,4vw,2.5rem);text-align:center" class="broken glitch extra-glitch">
       We’re building our side of the bridge.<br>
-      If they burn it down — we'll rebuild from the glitches.<br>
+      If they burn it down — we'll rebuild from the ashes.<br>
       Forever Couch Gang forever.
     </p>
   </div>
-  <footer class="glitch extra-glitch">ONE HUMAN • ONE WALLET • INFINITE ROT • SYSTEMS UNSTABLE</footer> <!-- Amped glitch -->
+  <footer class="glitch extra-glitch">ONE HUMAN • ONE WALLET • INFINITE ROT • BRIDGE BUILDING</footer>
   <script>
-    // CINEMATIC DROP ON EVERY LOAD WITH EXTRA SUSPENSE
+    // CINEMATIC DROP WITH SHORTENED SUSPENSE
     const overlay = document.getElementById('updating-overlay');
     const bar = document.getElementById('update-bar');
     const mainContent = document.querySelector('.container');
@@ -151,45 +151,43 @@
     const triggerUpdateNow = true;
     if (triggerUpdateNow) {
       setTimeout(() => {
-        mainContent.style.transition = 'opacity 3s ease';
+        mainContent.style.transition = 'opacity 2s ease';
         mainContent.style.opacity = '0';
-        footer.style.transition = 'opacity 3s ease';
+        footer.style.transition = 'opacity 2s ease';
         footer.style.opacity = '0';
-        nebula.style.transition = 'opacity 3s ease';
+        nebula.style.transition = 'opacity 2s ease';
         nebula.style.opacity = '0.3';
-        // Add extra glitch delay for suspense
         setTimeout(() => {
           overlay.style.display = 'flex';
           overlay.style.opacity = '1';
           let progress = 0;
           const interval = setInterval(() => {
-            progress += 100 / 300;
+            progress += 100 / 150; // 15s total
             bar.style.width = progress + '%';
             if (progress >= 100) {
               clearInterval(interval);
-              // Extra flicker before reveal
               setTimeout(() => {
-                overlay.style.transition = 'opacity 2s ease';
+                overlay.style.transition = 'opacity 1.5s ease';
                 overlay.style.opacity = '0';
                 setTimeout(() => {
                   overlay.style.display = 'none';
                   mainContent.style.opacity = '1';
                   footer.style.opacity = '0.9';
                   nebula.style.opacity = '0.9';
-                }, 2000);
-              }, 1000); // Pause for suspense
+                }, 1500);
+              }, 800); // Shorter pause
             }
           }, 100);
-        }, 4000); // Longer fade for drama
-      }, 2000);
+        }, 2000);
+      }, 1000);
     }
-    // COUNTDOWN FIXED
-    const genesis = new Date(Date.UTC(2026, 0, 1, 5, 0, 0)).getTime(); // Jan 1 2026 00:00 EST
+    // COUNTDOWN
+    const genesis = new Date(Date.UTC(2026, 0, 1, 5, 0, 0)).getTime();
     function updateTimer() {
       const now = Date.now();
       let distance = genesis - now;
       if (distance < 0) {
-        document.querySelector('.countdown').innerHTML = "<h1 style='background:linear-gradient(90deg,#00ff41,#ff00ff);-webkit-background-clip:text;color:transparent;font-size:clamp(4rem,15vw,10rem)'>GENESIS IS LIVE</h1>";
+        document.querySelector('.countdown').innerHTML = "<h1 style='background:linear-gradient(90deg,#00ff41,#ff00ff);-webkit-background-clip:text;color:transparent;font-size:clamp(4rem,15vw,10rem)'>GENESIS LIVE – ROT INFINITE</h1>";
         document.getElementById('fill').style.width = '100%';
         return;
       }
@@ -209,13 +207,13 @@
     }
     setInterval(updateTimer, 1000);
     updateTimer();
-    // AUDIO CONTROLS WITH AUTO-PLAY AT 35% VOLUME
+    // AUDIO CONTROLS
     const song = document.getElementById('song');
     const playPauseBtn = document.getElementById('playPauseBtn');
     const volumeSlider = document.getElementById('volumeSlider');
-    song.volume = 0.35; // Start at 35% volume
-    volumeSlider.value = 0.35; // Sync slider
-    song.play(); // Auto-play on load
+    song.volume = 0.35;
+    volumeSlider.value = 0.35;
+    song.play();
     playPauseBtn.addEventListener('click', () => {
       if (song.paused) {
         song.play();
@@ -231,7 +229,7 @@
     song.addEventListener('ended', () => {
       playPauseBtn.textContent = 'REPLAY ANTHEM';
     });
-    // SHOPIFY EMBED – UPDATED WITH NEW CONFIG
+    // SHOPIFY EMBED
     /*<![CDATA[*/
     (function () {
       var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
@@ -309,7 +307,7 @@
           }
         },
         "text": {
-          "button": "Add to cart"
+          "button": "STACK WITH $FCGC"
         },
         "googleFonts": [
           "Playfair Display"
@@ -367,7 +365,7 @@
           "Playfair Display"
         ],
         "text": {
-          "button": "Add to cart"
+          "button": "STACK WITH $FCGC"
         }
       },
       "option": {},
@@ -431,24 +429,28 @@
       }
     })();
     /*]]>*/
-    // AUTOSCROLL WITH GLITCH PAUSES
+    // AUTOSCROLL WITH USER INTERRUPT
+    let scrolling = true;
+    let timeout;
     function autoScroll() {
+      if (!scrolling) return;
       const scrollSpeed = 35;
       const pauseAtBottom = 5000;
       const pauseAtTop = 3000;
       let scrollingDown = true;
       function scrollStep() {
+        if (!scrolling) return;
         if (scrollingDown) {
           window.scrollBy(0, scrollSpeed);
           if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 10) {
             scrollingDown = false;
-            setTimeout(() => { scrollingDown = true; }, pauseAtBottom + Math.random() * 2000); // Random glitch pause
+            setTimeout(() => { if (scrolling) scrollingDown = true; }, pauseAtBottom + Math.random() * 2000);
           }
         } else {
           window.scrollBy(0, -scrollSpeed);
           if (window.scrollY <= 10) {
             scrollingDown = true;
-            setTimeout(() => { scrollingDown = false; }, pauseAtTop + Math.random() * 2000); // Random glitch pause
+            setTimeout(() => { if (scrolling) scrollingDown = false; }, pauseAtTop + Math.random() * 2000);
           }
         }
         requestAnimationFrame(scrollStep);
@@ -456,6 +458,14 @@
       scrollStep();
     }
     window.addEventListener('load', autoScroll);
+    // Interrupt on user input
+    ['wheel', 'touchstart'].forEach(event => {
+      window.addEventListener(event, () => {
+        scrolling = false;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => { scrolling = true; autoScroll(); }, 10000); // Resume after 10s idle
+      });
+    });
   </script>
 </body>
 </html>
